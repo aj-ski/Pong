@@ -1,2 +1,5 @@
 # Pong
-Small pong project, first ever independent game, made in Godot.
+Small pong project made in Godot, multiplayer only.
+
+Game is playable in browser on itch.io
+https://ajski.itch.io/simple-pong-game
