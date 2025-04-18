@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://yogvrifpqc3b"]
+
+[ext_resource type="FontFile" uid="uid://bdei1jyh6wmby" path="res://Sprites/ARCADECLASSIC.TTF" id="1_ped6l"]
+[ext_resource type="Script" path="res://Scripts/winner_scene.gd" id="1_wt6y6"]
+[ext_resource type="FontFile" uid="uid://cplkd5vsyjhkq" path="res://Sprites/PublicPixel-E447g.ttf" id="2_as7p7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jtgxf"]
+font = ExtResource("1_ped6l")
+font_size = 100
+
+[node name="Winner Scene" type="Node"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("1_wt6y6")
+
+[node name="Winner Label" type="Label" parent="CanvasLayer"]
+offset_left = 122.0
+offset_top = 123.0
+offset_right = 1056.0
+offset_bottom = 225.0
+text = "Placeholder   Wins!"
+label_settings = SubResource("LabelSettings_jtgxf")
+horizontal_alignment = 1
+
+[node name="Return" type="Button" parent="CanvasLayer"]
+offset_left = 393.0
+offset_top = 370.0
+offset_right = 739.0
+offset_bottom = 490.0
+theme_override_colors/font_color = Color(0.460982, 0.387286, 0.231492, 1)
+theme_override_colors/font_pressed_color = Color(0.526107, 0.443801, 0.270881, 1)
+theme_override_colors/font_hover_color = Color(0.462745, 0.388235, 0.231373, 1)
+theme_override_fonts/font = ExtResource("2_as7p7")
+theme_override_font_sizes/font_size = 20
+text = "Return To Menu
+"
+
+[connection signal="pressed" from="CanvasLayer/Return" to="." method="_on_return_pressed"]
+[connection signal="pressed" from="CanvasLayer/Return" to="CanvasLayer" method="_on_return_pressed"]

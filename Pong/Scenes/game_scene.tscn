@@ -1,0 +1,140 @@
+[gd_scene load_steps=18 format=3 uid="uid://5ns06kxprv0p"]
+
+[ext_resource type="Texture2D" uid="uid://b8ul2s08wlcgk" path="res://Sprites/Board.png" id="1_vqvj4"]
+[ext_resource type="Script" path="res://Scripts/HUD.gd" id="2_6ebpl"]
+[ext_resource type="Texture2D" uid="uid://cbo51lqc65kav" path="res://Sprites/ScoreBar.png" id="3_km5d2"]
+[ext_resource type="FontFile" uid="uid://dafvjjv68e6uf" path="res://Sprites/SourceSansPro-Black.ttf" id="4_sjfm5"]
+[ext_resource type="Script" path="res://Scripts/player_1.gd" id="5_fo7hn"]
+[ext_resource type="Texture2D" uid="uid://d3rlkvfmfum2d" path="res://Sprites/Player1.png" id="6_1g38o"]
+[ext_resource type="Script" path="res://Scripts/player_2.gd" id="7_u3yrq"]
+[ext_resource type="Texture2D" uid="uid://c261uijxcbobi" path="res://Sprites/Player2.png" id="8_ncjbx"]
+[ext_resource type="PackedScene" uid="uid://cdyfo0fdeg6l4" path="res://Scenes/horizontal_wall.tscn" id="9_0oiyi"]
+[ext_resource type="PackedScene" uid="uid://bccygyry66kx0" path="res://Scenes/ball.tscn" id="10_gplxn"]
+[ext_resource type="Script" path="res://Scripts/ball.gd" id="11_1k34f"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bv57m"]
+font = ExtResource("4_sjfm5")
+font_size = 30
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_esah2"]
+font = ExtResource("4_sjfm5")
+font_size = 26
+font_color = Color(0.67069, 0.67069, 0.67069, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fed64"]
+size = Vector2(16, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x87gd"]
+size = Vector2(18, 119)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wo4a8"]
+size = Vector2(17, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_op0o2"]
+size = Vector2(21, 120)
+
+[node name="Game Scene" type="Node"]
+
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 1151.0
+offset_bottom = 641.0
+texture = ExtResource("1_vqvj4")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("2_6ebpl")
+
+[node name="Player 1 Score Box" type="Sprite2D" parent="HUD"]
+position = Vector2(226.5, 32.75)
+scale = Vector2(1.331, 1.345)
+texture = ExtResource("3_km5d2")
+
+[node name="Player 2 Score Box" type="Sprite2D" parent="HUD"]
+position = Vector2(924, 32.25)
+scale = Vector2(1.331, 1.345)
+texture = ExtResource("3_km5d2")
+flip_h = true
+
+[node name="Player 1 Score" type="Label" parent="HUD"]
+offset_top = 2.0
+offset_right = 418.0
+offset_bottom = 66.0
+text = "Player 1: 0"
+label_settings = SubResource("LabelSettings_bv57m")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player 2 Score" type="Label" parent="HUD"]
+offset_left = 736.0
+offset_top = 1.0
+offset_right = 1151.0
+offset_bottom = 65.0
+text = "Player 2: 0"
+label_settings = SubResource("LabelSettings_bv57m")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Instructions" type="Label" parent="HUD"]
+offset_left = 451.0
+offset_top = 10.0
+offset_right = 697.0
+offset_bottom = 49.0
+text = "First to 5 wins!"
+label_settings = SubResource("LabelSettings_esah2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player1" type="CharacterBody2D" parent="."]
+position = Vector2(8, 324)
+script = ExtResource("5_fo7hn")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player1"]
+texture = ExtResource("6_1g38o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player1"]
+shape = SubResource("RectangleShape2D_fed64")
+
+[node name="Paddle1" type="Area2D" parent="Player1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player1/Paddle1"]
+position = Vector2(14, 0.5)
+shape = SubResource("RectangleShape2D_x87gd")
+
+[node name="Player2" type="CharacterBody2D" parent="."]
+position = Vector2(1146, 324)
+script = ExtResource("7_u3yrq")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player2"]
+texture = ExtResource("8_ncjbx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2"]
+shape = SubResource("RectangleShape2D_wo4a8")
+
+[node name="Paddle2" type="Area2D" parent="Player2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player2/Paddle2"]
+position = Vector2(-15.5, 0)
+shape = SubResource("RectangleShape2D_op0o2")
+
+[node name="Top Wall" parent="." instance=ExtResource("9_0oiyi")]
+position = Vector2(1, -2)
+
+[node name="Bottom Wall" parent="." instance=ExtResource("9_0oiyi")]
+position = Vector2(0, 669)
+
+[node name="Ball" parent="." instance=ExtResource("10_gplxn")]
+position = Vector2(575, 320)
+gravity_scale = 0.0
+script = ExtResource("11_1k34f")
+
+[connection signal="body_entered" from="Player1/Paddle1" to="Ball" method="_on_paddle_1_body_entered"]
+[connection signal="body_entered" from="Player2/Paddle2" to="Ball" method="_on_paddle_2_body_entered"]
+[connection signal="game_started" from="Ball" to="HUD" method="_on_ball_game_started"]
+[connection signal="game_started" from="Ball" to="Player1" method="_on_ball_game_started"]
+[connection signal="game_started" from="Ball" to="Player2" method="_on_ball_game_started"]
+[connection signal="p1_wins" from="Ball" to="HUD" method="_on_ball_p_1_wins"]
+[connection signal="p1_wins" from="Ball" to="Player1" method="_on_ball_p_1_wins"]
+[connection signal="p1_wins" from="Ball" to="Player2" method="_on_ball_p_1_wins"]
+[connection signal="p2_wins" from="Ball" to="HUD" method="_on_ball_p_2_wins"]
+[connection signal="p2_wins" from="Ball" to="Player1" method="_on_ball_p_2_wins"]
+[connection signal="p2_wins" from="Ball" to="Player2" method="_on_ball_p_2_wins"]

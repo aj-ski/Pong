@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4wdid2fa7rew"]
+
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_0gni4"]
+[ext_resource type="FontFile" uid="uid://cplkd5vsyjhkq" path="res://Sprites/PublicPixel-E447g.ttf" id="1_oai88"]
+[ext_resource type="FontFile" uid="uid://bdei1jyh6wmby" path="res://Sprites/ARCADECLASSIC.TTF" id="1_qyecy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ldshh"]
+line_spacing = 4.635
+font = ExtResource("1_qyecy")
+font_size = 150
+
+[node name="Main Menu" type="Node"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("1_0gni4")
+
+[node name="Title" type="Label" parent="CanvasLayer"]
+offset_left = 355.0
+offset_top = 114.0
+offset_right = 798.0
+offset_bottom = 266.0
+text = "Pong
+"
+label_settings = SubResource("LabelSettings_ldshh")
+horizontal_alignment = 1
+
+[node name="Start" type="Button" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 434.0
+offset_top = 337.0
+offset_right = 699.0
+offset_bottom = 439.0
+theme_override_colors/font_color = Color(0, 0.972549, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.40019, 1, 0.369744, 1)
+theme_override_colors/font_hover_color = Color(0, 0.972549, 0, 1)
+theme_override_fonts/font = ExtResource("1_oai88")
+theme_override_font_sizes/font_size = 40
+text = "Start"
+
+[node name="Exit" type="Button" parent="CanvasLayer"]
+texture_filter = 1
+offset_left = 434.0
+offset_top = 490.0
+offset_right = 699.0
+offset_bottom = 592.0
+theme_override_colors/font_color = Color(0.972549, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.229536, 0.174185, 1)
+theme_override_colors/font_hover_color = Color(0.972549, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_oai88")
+theme_override_font_sizes/font_size = 40
+text = "Exit
+"
+
+[connection signal="pressed" from="CanvasLayer/Start" to="CanvasLayer" method="_on_start_pressed"]
+[connection signal="pressed" from="CanvasLayer/Exit" to="CanvasLayer" method="_on_exit_pressed"]
